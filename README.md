@@ -2,7 +2,7 @@
 
 ##Indexing the Reference: Step One 
 
-```python
+```perl
 #! /bin/bash
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
@@ -23,7 +23,7 @@ bwa index -p sacCer3 ~/Group_Project/sacCer3.masked.fa
 ```
 
 ##Download the Sample Files: Step Two 
-```
+```perl
 #!/bin/sh
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
@@ -36,7 +36,7 @@ fastq-dump --origfmt --gzip -I SRR1693728
 
 ```
 ##Split Lanes: Step Three
-```
+```perl
 #!/bin/bash
 #copy your fastq file into scratch
 cp ~/Group_Project/Part2/Original_downloads/SRR1693723.fastq.gz /scratch/aubcls35/
@@ -64,7 +64,7 @@ cp SRR1693728.*.fastq.gz ~/Group_Project
 rm SRR1693728.fastq
 ```
 ##BWA Script (Alignment): Step Four
-```
+```perl
 #! /bin/bash
 
 #aligns
@@ -102,7 +102,7 @@ samtools index -bc SRR1693728_2.sorted.bam
 samtools index -bc SRR1693728_3.sorted.bam
 ```
 ##Merging: Step Five
-```
+```perl
 # !/bin/bash
 
 
@@ -125,7 +125,7 @@ samtools index -bc SRR1693728.merged.final.bam
 
 ##Statistics: Step Six 
 
-```
+```perl
 module load samtools
 samtools flagstat SRR1693723.merged.final.bam
 samtools flagstat SRR1693724.merged.final.bam
