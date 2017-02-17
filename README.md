@@ -2,8 +2,8 @@
 
 ##Indexing the Reference: Step One 
 
-```perl
-#! /bin/sh
+```bash
+#! /bin/bash
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
 module load bwa/0.7.12
