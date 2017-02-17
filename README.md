@@ -2,7 +2,7 @@
 
 ##Indexing the Reference: Step One 
 
-```bash
+```shell
 #! /bin/bash
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
