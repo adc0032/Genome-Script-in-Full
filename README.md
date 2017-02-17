@@ -2,7 +2,7 @@
 
 ##Indexing the Reference: Step One 
 
-```shell
+```python
 #! /bin/bash
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
