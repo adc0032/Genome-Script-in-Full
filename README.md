@@ -22,7 +22,7 @@ bwa index -p sacCer3 ~/Group_Project/sacCer3.masked.fa
 #java -Xms2g -Xmx4g -jar /opt/asn/apps/picard_1.79/picard-tools-1.79/CreateSequenceDictionary.jar REFERENCE=sacCer3.masked.fa OUTPUT=sacCer3.masked.dict
 ```
 
-#Download the Sample Files: Step Two 
+##Download the Sample Files: Step Two 
 ```
 #!/bin/sh
 
@@ -123,7 +123,7 @@ samtools index -bc SRR1693724.merged.final.bam
 samtools index -bc SRR1693728.merged.final.bam
 ```
 
-#Statistics: Step Six 
+##Statistics: Step Six 
 
 ```
 module load samtools
