@@ -2,6 +2,7 @@
 
 ##Indexing the Reference: Step One 
 
+```
 #! /bin/sh
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
@@ -19,9 +20,10 @@ bwa index -p sacCer3 ~/Group_Project/sacCer3.masked.fa
 #samtools faidx ~/class_shared/sacCer3/sacCer3.masked.fa
 #cd ~/class_shared/sacCer3/
 #java -Xms2g -Xmx4g -jar /opt/asn/apps/picard_1.79/picard-tools-1.79/CreateSequenceDictionary.jar REFERENCE=sacCer3.masked.fa OUTPUT=sacCer3.masked.dict
+```
 
 #Download the Sample Files: Step Two 
-
+```
 #!/bin/sh
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
@@ -31,9 +33,11 @@ fastq-dump --origfmt --gzip -I SRR1693723
 fastq-dump --origfmt --gzip -I SRR1693724
 fastq-dump --origfmt --gzip -I SRR1693728
 
-# !/bin/bash
 
+```
 ##Split Lanes: Step Three
+```
+#!/bin/bash
 #copy your fastq file into scratch
 cp ~/Group_Project/Part2/Original_downloads/SRR1693723.fastq.gz /scratch/aubcls35/
 cd /scratch/aubcls35/
@@ -58,8 +62,9 @@ awk 'BEGIN {FS = ":"} {lane=$3.$4 ; print > "SRR1693728."lane".fastq" ; for (i =
 gzip SRR1693728.*.fastq
 cp SRR1693728.*.fastq.gz ~/Group_Project
 rm SRR1693728.fastq
-
+```
 ##BWA Script (Alignment): Step Four
+```
 #! /bin/bash
 
 #aligns
@@ -95,9 +100,9 @@ samtools index -bc SRR1693724_3.sorted.bam
 samtools index -bc SRR1693728_1.sorted.bam
 samtools index -bc SRR1693728_2.sorted.bam
 samtools index -bc SRR1693728_3.sorted.bam
-
+```
 ##Merging: Step Five
-
+```
 # !/bin/bash
 
 
@@ -116,6 +121,29 @@ samtools sort SRR1693728.sorted.bam > SRR1693728.merged.final.bam
 samtools index -bc SRR1693723.merged.final.bam
 samtools index -bc SRR1693724.merged.final.bam
 samtools index -bc SRR1693728.merged.final.bam
+```
+
+#Statistics: Step Six 
+
+```
+module load samtools
+samtools flagstat SRR1693723.merged.final.bam
+samtools flagstat SRR1693724.merged.final.bam
+samtools flagstat SRR1693728.merged.final.bam
+
+samtools depth SRR1693723.merged.final.bam > SRR1693723.depth.out
+awk '{sum+=$3} END { print "Average = ",sum/12071326}' SRR1693723.depth.out > SRR723.depth.text
+awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR1693723.depth.out >> SRR723.depth.text
+
+samtools depth SRR1693724.merged.final.bam > SRR1693724.depth.out
+awk '{sum+=$3} END { print "Average = ",sum/12071326}' SRR1693724.depth.out > SRR724.depth.text
+awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR1693724.depth.out >> SRR724.depth.text
+
+samtools depth SRR1693728.merged.final.bam > SRR1693728.depth.out
+awk '{sum+=$3} END { print "Average = ",sum/12071326}' SRR1693728.depth.out > SRR728.depth.text
+awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR1693728.depth.out >> SRR728.depth.text
+```
+
 
 
 
