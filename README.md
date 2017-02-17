@@ -2,7 +2,7 @@
 
 ##Indexing the Reference: Step One 
 
-```sh
+```perl
 #! /bin/sh
 
 source /opt/asn/etc/asn-bash-profiles-special/modules.sh
