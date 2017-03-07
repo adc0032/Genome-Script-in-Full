@@ -67,39 +67,17 @@ rm SRR1693728.fastq
 ```ruby
 #! /bin/bash
 
-#aligns
-#M= picard tools compatability
-#-v= verbose
-#T=Number of threads
-#order: reference, input, pipe to output
-#sort
-#Sbu sam to bam file
-
-module load samtools
-module load bwa
-
-#mkdir ~/Group_Project/Bam_files
-
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane1\tPL:illumina\tPU:_1\tLB:SRR1693723_1" sacCer3 /home/aubcls35/Group_Project/SRR1693723.C1630ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693723_1.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane2\tPL:illumina\tPU:_2\tLB:SRR1693723_2" sacCer3 /home/aubcls35/Group_Project/SRR1693723.C1AC9ACXX5.fastq.gz | samtools view -Sb | samtools sort > SRR1693723_2.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane3\tPL:illumina\tPU:_3\tLB:SRR1693723_3" sacCer3 /home/aubcls35/Group_Project/SRR1693723.C1AC9ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693723_3.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane1\tPL:illumina\tPU:_1\tLB:SRR1693724_1" sacCer3 /home/aubcls35/Group_Project/SRR1693724.C1630ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693724_1.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane2\tPL:illumina\tPU:_2\tLB:SRR1693724_2" sacCer3 /home/aubcls35/Group_Project/SRR1693724.C1AC9ACXX5.fastq.gz | samtools view -Sb | samtools sort > SRR1693724_2.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane3\tPL:illumina\tPU:_3\tLB:SRR1693724_3" sacCer3 /home/aubcls35/Group_Project/SRR1693724.C1AC9ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693724_3.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane1\tPL:illumina\tPU:_1\tLB:SRR1693728_1" sacCer3 /home/aubcls35/Group_Project/SRR1693728.C1AC9ACXX2.fastq.gz | samtools view -Sb | samtools sort > SRR1693728_1.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane2\tPL:illumina\tPU:_2\tLB:SRR1693728_2" sacCer3 /home/aubcls35/Group_Project/SRR1693728.C1AC9ACXX3.fastq.gz | samtools view -Sb | samtools sort > SRR1693728_2.sorted.bam
-bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen6\tSM:Rep9Gen6Lane3\tPL:illumina\tPU:_3\tLB:SRR1693728_3" sacCer3 /home/aubcls35/Group_Project/SRR1693728.D19EFACXX1.fastq.gz | samtools view -Sb | samtools sort > SRR1693728_3.sorted.bam
 
 #index the samples above
-samtools index -bc SRR1693723_1.sorted.bam
-samtools index -bc SRR1693723_2.sorted.bam
-samtools index -bc SRR1693723_3.sorted.bam
-samtools index -bc SRR1693724_1.sorted.bam
-samtools index -bc SRR1693724_2.sorted.bam
-samtools index -bc SRR1693724_3.sorted.bam
-samtools index -bc SRR1693728_1.sorted.bam
-samtools index -bc SRR1693728_2.sorted.bam
-samtools index -bc SRR1693728_3.sorted.bam
+samtools index -b SRR1693723_1.sorted.bam
+samtools index -b SRR1693723_2.sorted.bam
+samtools index -b SRR1693723_3.sorted.bam
+samtools index -b SRR1693724_1.sorted.bam
+samtools index -b SRR1693724_2.sorted.bam
+samtools index -b SRR1693724_3.sorted.bam
+samtools index -b SRR1693728_1.sorted.bam
+samtools index -b SRR1693728_2.sorted.bam
+samtools index -b SRR1693728_3.sorted.bam
 ```
 ##Merging: Step Five
 ```ruby
@@ -118,9 +96,9 @@ samtools sort SRR1693723.sorted.bam > SRR1693723.merged.final.bam
 samtools sort SRR1693724.sorted.bam > SRR1693724.merged.final.bam
 samtools sort SRR1693728.sorted.bam > SRR1693728.merged.final.bam
 
-samtools index -bc SRR1693723.merged.final.bam
-samtools index -bc SRR1693724.merged.final.bam
-samtools index -bc SRR1693728.merged.final.bam
+samtools index -b SRR1693723.merged.final.bam
+samtools index -b SRR1693724.merged.final.bam
+samtools index -b SRR1693728.merged.final.bam
 ```
 
 ##Statistics: Step Six 
