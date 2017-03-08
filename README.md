@@ -81,21 +81,13 @@ module load bwa
 #mkdir ~/Group_Project/Bam_files
 
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen623_1\tSM:Rep9Gen6\tPL:illumina\tPU:_1\tLB:SRR1693723_1" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693723.C1630ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693723_1.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen623_2\tSM:Rep9Gen6\tPL:illumina\tPU:_2\tLB:SRR1693723_2" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693723.C1AC9ACXX5.fastq.gz | samtools view -Sb | samtools sort > SRR1693723_2.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen623_3\tSM:Rep9Gen6\tPL:illumina\tPU:_3\tLB:SRR1693723_3" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693723.C1AC9ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693723_3.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen624_1\tSM:Rep9Gen6\tPL:illumina\tPU:_1\tLB:SRR1693724_1" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693724.C1630ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693724_1.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen624_2\tSM:Rep9Gen6\tPL:illumina\tPU:_2\tLB:SRR1693724_2" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693724.C1AC9ACXX5.fastq.gz | samtools view -Sb | samtools sort > SRR1693724_2.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen624_3\tSM:Rep9Gen6\tPL:illumina\tPU:_3\tLB:SRR1693724_3" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693724.C1AC9ACXX6.fastq.gz | samtools view -Sb | samtools sort > SRR1693724_3.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen628_1\tSM:Rep9Gen6\tPL:illumina\tPU:_1\tLB:SRR1693728_1" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693728.C1AC9ACXX2.fastq.gz | samtools view -Sb | samtools sort > SRR1693728_1.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen628_2\tSM:Rep9Gen6\tPL:illumina\tPU:_2\tLB:SRR1693728_2" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693728.C1AC9ACXX3.fastq.gz | samtools view -Sb | samtools sort > SRR1693728_2.sorted.bam
-
 bwa mem -M  -v 2 -t 6 -R "@RG\tID:Rep9Gen628_3\tSM:Rep9Gen6\tPL:illumina\tPU:_3\tLB:SRR1693728_3" sacCer3 /home/aubcls35/Group_Project/Part2/split_lanes/SRR1693728.D19EFACXX1.fastq.gz | samtools view -Sb | samtools sort > SRR1693728_3.sorted.bam
 
 
