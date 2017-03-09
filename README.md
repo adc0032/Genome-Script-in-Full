@@ -1,5 +1,5 @@
 # Genome-Script-in-Full
-##**Part One:Downloading Samples, Indexing Reference, and Splitting Lanes** 
+###**Part One: Downloading Samples, Indexing Reference, and Splitting Lanes** 
 ```ruby
 # !/bin/bash
 
@@ -19,7 +19,6 @@ source /opt/asn/etc/asn-bash-profiles-special/modules.sh
 bwa index -p sacCer3 ~/Group_Project/sacCer3.masked.fa
 samtools faidx ~/Group_Project/sacCer3.fa.masked
 java -Xms2g -Xmx4g -jar /opt/asn/apps/picard_1.79/picard-tools-1.79/CreateSequenceDictionary.jar REFERENCE=sacCer3.masked.fa OUTPUT=sacCer3.masked.dict
-
 
 #Split Lanes
 cp ~/Group_Project/Part_1/Original_downloads/SRR1693723.fastq.gz /scratch/aubcls35/
@@ -46,7 +45,9 @@ gzip SRR1693728.*.fastq
 cp SRR1693728.*.fastq.gz ~/Group_Project/Part_1/
 rm SRR1693728.fastq
 ```
-##**Part Two: Merging and Aligning Samples to Reference** 
+Final Files from Part One are the split lane files, ending in: SRR.lane_code.fastq.gz
+
+###**Part Two: Merging and Aligning Samples to Reference** 
 ```ruby
 # !/bin/bash
 
@@ -113,7 +114,9 @@ samtools depth SRR1693728.merged.final.bam > SRR1693728.depth.out
 awk '{sum+=$3} END { print "Average = ",sum/12071326}' SRR1693728.depth.out > SRR728.depth.text
 awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR1693728.depth.out >> SRR728.depth.text
 ```
-##**Part Three: Picard and GATK Tools (Marking Duplicates and Realigning)**
+Final files from part two are as follows: SRR.merged.final.bam and the index SRR.merged.final.bai
+
+###**Part Three: Picard and GATK Tools (Marking Duplicates and Realigning)**
 ```ruby
 # !/bin/bash
 
@@ -155,6 +158,8 @@ java -Xms2g -Xmx10g -jar /opt/asn/apps/gatk_3.4-46/GenomeAnalysisTK.jar -R sacCe
 	#recalibrate bases (we skipped this in our analysis) but Example below
 java -jar GenomeAnalysisTK.jar -T PrintReads -R sacCer3.masked.fa -I YeastGenome.realigned.bam -BQSR YeastGen__recalibration_report.grp -o YeastGenome.realigned.bqsr.bam
 ```
+The final files from part three are in the following format: SRR.sorted.markdup.realigned.bam 
+
 ##**Part Four**
 
 
