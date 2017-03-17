@@ -197,7 +197,7 @@ awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev_28 = ",sqrt(sumsq/12071326 - (sum
 `--depth` #depth of file
 `--window_pi` #upload into R
 
-
+Final Files end in SRR#.g.vcf. Mean depth can be found in SRR#.idepth, and SD is in the dev.text file. 
 
 
 
