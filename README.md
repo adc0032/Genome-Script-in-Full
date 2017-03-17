@@ -1,5 +1,5 @@
 # Genome-Script-in-Full
-###**Part One: Downloading Samples, Indexing Reference, and Splitting Lanes** 
+### **Part One: Downloading Samples, Indexing Reference, and Splitting Lanes** 
 ```ruby
 # !/bin/bash
 
@@ -47,7 +47,7 @@ rm SRR1693728.fastq
 ```
 Final Files from Part One are the split lane files, ending in: SRR.lane_code.fastq.gz
 
-###**Part Two: Merging and Aligning Samples to Reference** 
+### **Part Two: Merging and Aligning Samples to Reference** 
 ```ruby
 # !/bin/bash
 
@@ -116,7 +116,7 @@ awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev = ",sqrt(sumsq/12071326 - (sum/12
 ```
 Final files from part two are as follows: SRR.merged.final.bam and the index SRR.merged.final.bai
 
-###**Part Three: Picard and GATK Tools (Marking Duplicates and Realigning)**
+### **Part Three: Picard and GATK Tools (Marking Duplicates and Realigning)**
 ```ruby
 # !/bin/bash
 
@@ -160,7 +160,42 @@ java -jar GenomeAnalysisTK.jar -T PrintReads -R sacCer3.masked.fa -I YeastGenome
 ```
 The final files from part three are in the following format: SRR.sorted.markdup.realigned.bam 
 
-##**Part Four**
+## **Part Four**
+```ruby
+# !/bin/bash
+
+module load gatk
+module load java
+module load vcftools
+
+#Haplotype Caller
+java -Xms2g -Xmx4g -jar /opt/asn/apps/gatk_3.4-46/GenomeAnalysisTK.jar -T HaplotypeCaller -R sacCer3.masked.fa -I ~/Group_Project/Part_3/SRR1693723.sorted.markdup.realigned.bam -ERC GVCF -nct 8 -o SRR723.g.vcf  
+java -Xms2g -Xmx4g -jar /opt/asn/apps/gatk_3.4-46/GenomeAnalysisTK.jar -T HaplotypeCaller -R sacCer3.masked.fa -I ~/Group_Project/Part_3/SRR1693724.sorted.markdup.realigned.bam -ERC GVCF -nct 8 -o SRR724.g.vcf 
+java -Xms2g -Xmx4g -jar /opt/asn/apps/gatk_3.4-46/GenomeAnalysisTK.jar -T HaplotypeCaller -R sacCer3.masked.fa -I ~/Group_Project/Part_3/SRR1693728.sorted.markdup.realigned.bam -ERC GVCF -nct 8 -o SRR728.g.vcf
+
+#VCF tools output files
+
+vcftools --vcf SRR723.g.vcf --site-depth --out SRR723
+vcftools --vcf SRR724.g.vcf --site-depth --out SRR724
+vcftools --vcf SRR728.g.vcf --site-depth --out SRR728
+
+vcftools --vcf SRR723.g.vcf --depth --out SRR723
+vcftools --vcf SRR724.g.vcf --depth --out SRR724
+vcftools --vcf SRR728.g.vcf --depth --out SRR728
+
+#Summary Statistics (Standard Deviation)
+awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev_23 = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR723.ldepth > SRR.dev.text
+awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev_24 = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR724.ldepth >> SRR.dev.text
+awk '{sum+=$3; sumsq+=$3*$3} END {print "Stdev_28 = ",sqrt(sumsq/12071326 - (sum/12071326)**2)}' SRR728.ldepth >> SRR.dev.text
+
+
+#Joint Genotyping
+#java -Xms2g -Xmx4g -jar /opt/asn/apps/gatk_3.4-46/GenomeAnalysisTK.jar -T GenotypeGVCFs -R sacCer3.masked.fa -V SRR728.g.vcf -V SRR724.g.vcf -V SRR723.g.vcf -o SRRoutput.vcf
+```
+
+`--site-depth` #Depth at each site across individuals
+`--depth` #depth of file
+`--window_pi` #upload into R
 
 
 
